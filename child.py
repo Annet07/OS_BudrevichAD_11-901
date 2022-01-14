@@ -1,18 +1,19 @@
+#!/usr/bin/python3
+
 import os
 import random
 import sys
 import time
 
-#Будревич Анна Дмитриевна, группа 11-901
+# Будревич Анна Дмитриевна, группа 11-901
 
-def run_program(arg):
+args = sys.argv
+if len(args) > 1:
+    arg = int(args[1])
     pid = os.getpid()
-    print("Запущена программа Child в процессе с PID %d с аргументом %d." % (pid, arg))
+    print(f"Запущена программа Child в процессе с PID {pid} с аргументом {arg}.")
     time.sleep(arg)
-    sys.exit(random.randint(0, 1))
-
-
-if __name__ == '__main__':
-    args = sys.argv
-    n = int(args[1])
-    run_program(n)
+    status = random.randint(0, 1)
+    os._exit(status)
+else:
+    print("Ошибка! Необходимо передать аргумент в дочерний процесс.")
